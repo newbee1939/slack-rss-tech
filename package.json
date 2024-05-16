@@ -2,7 +2,6 @@
   "name": "slack-rss-tech",
   "version": "1.0.0",
   "description": "Tech記事のRSSをSlack通知するアプリ",
-  "main": "index.js",
   "scripts": {
     "test": "jest",
     "bun": "bun"
@@ -21,9 +20,11 @@
     "bun": "^1.1.8"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.2"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "module": "index.ts",
+  "type": "module"
 }
