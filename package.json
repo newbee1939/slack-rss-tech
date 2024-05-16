@@ -4,7 +4,8 @@
   "description": "Tech記事のRSSをSlack通知するアプリ",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "bun": "bun"
   },
   "repository": {
     "type": "git",
