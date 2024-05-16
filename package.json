@@ -1,0 +1,22 @@
+{
+  "name": "slack-rss-tech",
+  "version": "1.0.0",
+  "description": "Tech記事のRSSをSlack通知するアプリ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newbee1939/slack-rss-tech.git"
+  },
+  "author": "newbee1939",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newbee1939/slack-rss-tech/issues"
+  },
+  "homepage": "https://github.com/newbee1939/slack-rss-tech#readme",
+  "dependencies": {
+    "bun": "^1.1.8"
+  }
+}
