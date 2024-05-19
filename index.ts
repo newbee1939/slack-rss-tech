@@ -1,17 +1,15 @@
-const { WebClient } = require('@slack/web-api');
+import axios from "axios";
 
-(async () => {
-  // OAuth トークン
-  const token  = 'xoxb-6600661338418-7142231146308-WOzQWYz9kdW8Y0gl2DgbhWs9';
-  // #チャンネル名 of @ユーザー名
-  const channel = '#エンジニアリング';
-  // メッセージ
-  const text = '*Hello World*';
+const postData = new URLSearchParams();
 
-  const client = new WebClient(token);
-  const response = await client.chat.postMessage({ channel, text });
+postData.append('token', Bun.env.SLACK_BOT_TOKEN || "");
+postData.append('channel', '#エンジニアリング');
+postData.append('text', '*投稿しました*');
 
-  // 投稿に成功すると `ok` フィールドに `true` が入る。
-  console.log(response.ok);
-  // => true
-})();
+axios.post('https://slack.com/api/chat.postMessage', postData)
+  .then(response => {
+    console.log('Response:', response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
