@@ -2,35 +2,10 @@
 
 ## 初期インストール
 
-1. npm init
-2. npm install bun
-3. package.jsonのscripsに`"bun": "bun"`を追加
-4. npm run bun init
-- index.ts
-- tsconfig.json
-5. ngrok(Docker)準備
-6. ngrok.ymlと.env作成
-```shell
-cp docker/ngrok.yml.example docker/ngrok.yml
-cp .env.example .env
-```
-7. ngrok.ymlの`NGROK_AUTH_TOKEN`にngrokのトークンを設定
+1. Bunのインストール
+2. bun install
 
-Your Authtoken: https://dashboard.ngrok.com/get-started/your-authtoken
-
-8. コンテナ立ち上げ
-
-`docker compose up -d`
-
-9. localhost:4040にアクセスしてhttpsのエンドポイントURLを取得
-
-10. エンドポイントのURLを以下のSlack Appのページに設定
-
-https://api.slack.com/apps/A06HKQ009TP/event-subscriptions
-
-設定URLの例: https://9b57-210-194-190-35.ngrok-free.app/slack/events
-
-11. Slackアプリの設定
+Slackアプリの設定
 
 以下の手順を参考に。
 
