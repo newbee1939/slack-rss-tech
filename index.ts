@@ -4,7 +4,7 @@ const postData = new URLSearchParams();
 
 postData.append('token', Bun.env.SLACK_BOT_TOKEN || "");
 postData.append('channel', '#エンジニアリング');
-postData.append('text', '*投稿しました*');
+postData.append('text', '*投稿しした*');
 
 axios.post('https://slack.com/api/chat.postMessage', postData)
   .then(response => {
