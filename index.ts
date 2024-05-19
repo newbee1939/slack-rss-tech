@@ -30,7 +30,7 @@ const hatenaArticlesList = hatenaArticles.data.items.slice(0, ARTICLE_LIMIT).red
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, hatenaTitle);
 
-const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n\n${publickeyArticlesList}\n\n${zennArticlesList}\n\n${qiitaArticlesList}` + "```";
+const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}` + "```";
 
 const postData = new URLSearchParams();
 

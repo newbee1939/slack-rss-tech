@@ -68,6 +68,8 @@ w1707316441-wp8500715.slack.com
     - https://zenn.dev/rabee/articles/js-fetch-rss-feed-as-json
 - はてなブックマークのRSSフィードのURLと確認方法
     - https://sprint-life.hatenablog.com/entry/2014/01/15/203535
+- Slack API を使用してメッセージを投稿する
+    - https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 
 ## TODO
 
@@ -80,3 +82,7 @@ w1707316441-wp8500715.slack.com
 - bun installが速い
 - Bun.envで使える
     - dotenvとかが不要
+
+## 気付き
+
+- 環境変数を`Bun.env`で読める
