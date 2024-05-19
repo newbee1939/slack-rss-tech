@@ -64,6 +64,8 @@ w1707316441-wp8500715.slack.com
     - https://zenn.dev/feed
     - こっちの方がいいか？
         - https://zenn.dev/api/articles/
+- 『rss to json』 というサービスを使って RSS フィードを JSON として取得して表示してみよう
+    - https://zenn.dev/rabee/articles/js-fetch-rss-feed-as-json
 
 ## TODO
 
