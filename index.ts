@@ -1,10 +1,11 @@
 import axios from "axios";
 
 // Zennの記事を取得
+const zennTitle = '【Zenn】\n'
 const zennArticles = await axios.get("https://zenn.dev/api/articles/");
 const zennArticlesList = zennArticles.data.articles.slice(0, 5).reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<https://zenn.dev${current.path}|${current.title}>\n` 
-}, '```') + '```';
+}, '```' + zennTitle) + '```';
 
 const postData = new URLSearchParams();
 
