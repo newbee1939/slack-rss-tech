@@ -85,12 +85,6 @@ w1707316441-wp8500715.slack.com
 
 ## Bunの感想メモ
 
-- bun installが速い
-- Bun.envで使える
-    - dotenvとかが不要
-
-## 気付き
-
 - 環境変数を`Bun.env`で読める
     - dotenv不要
 - bun installは速い
