@@ -89,3 +89,4 @@ w1707316441-wp8500715.slack.com
     - dotenv不要
 - bun installは速い
 - hoge
+- hoga
