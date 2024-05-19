@@ -8,6 +8,12 @@ const zennArticlesList = zennArticles.data.articles.slice(0, 5).reduce((prev: an
 }, '```' + zennTitle) + '```';
 
 // Publickeyの記事を取得
+const publickeyRssUrl = 'https://www.publickey1.jp/atom.xml';
+const publickeyArticles = await axios.get(`https://api.rss2json.com/v1/api.json?rss_url=${publickeyRssUrl}`) 
+
+console.log("===================");
+console.log(publickeyArticles);
+console.log("===================");
 
 const postData = new URLSearchParams();
 
