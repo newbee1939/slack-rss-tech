@@ -59,7 +59,13 @@ w1707316441-wp8500715.slack.com
 
 - Bolt 入門ガイド（HTTP）
     - https://slack.dev/bolt-python/ja-jp/tutorial/getting-started-http
+- Slack API を使用してメッセージを投稿する
+    - https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 
 ## TODO
 
 - 使用技術・やっていることを深いところで理解
+
+## 気付き
+
+- 環境変数を`Bun.env`で読める
