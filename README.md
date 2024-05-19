@@ -61,6 +61,7 @@ w1707316441-wp8500715.slack.com
     - https://slack.dev/bolt-python/ja-jp/tutorial/getting-started-http
 - ZennをRSSフィードで購読する
     - https://zenn.dev/zenn/articles/zenn-feed-rss
+    - https://zenn.dev/feed
 
 ## TODO
 
