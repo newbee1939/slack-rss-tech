@@ -62,6 +62,8 @@ w1707316441-wp8500715.slack.com
 - ZennをRSSフィードで購読する
     - https://zenn.dev/zenn/articles/zenn-feed-rss
     - https://zenn.dev/feed
+    - こっちの方がいいか？
+        - https://zenn.dev/api/articles/
 
 ## TODO
 
