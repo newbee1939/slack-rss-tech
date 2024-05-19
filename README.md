@@ -70,6 +70,8 @@ w1707316441-wp8500715.slack.com
     - https://sprint-life.hatenablog.com/entry/2014/01/15/203535
 - Slack API を使用してメッセージを投稿する
     - https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
+- スケジュールに従ってジョブを実行する
+    - https://cloud.google.com/run/docs/execute/jobs-on-schedule?hl=ja
 
 ## TODO
 
