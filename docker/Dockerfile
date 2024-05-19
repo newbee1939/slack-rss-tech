@@ -1,9 +1,7 @@
-FROM python:3.10-bullseye
-
-RUN apt-get update && apt-get -y install pipenv
+FROM oven/bun:1.0-alpine
 
 WORKDIR /app
 
 COPY . . 
 
-RUN pipenv install --system
+RUN bun install

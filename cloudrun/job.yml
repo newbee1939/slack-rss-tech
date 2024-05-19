@@ -12,10 +12,8 @@ spec:
           containers:
           - image: ${DEPLOY_IMAGE}
             command:
-            - npm
+            - bun 
             args:
-            - run
-            - bun
             - run
             - index.ts
             env:
