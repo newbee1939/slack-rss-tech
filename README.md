@@ -77,6 +77,11 @@ w1707316441-wp8500715.slack.com
 - secretをあげてしまったので新しくリポジトリ作って今のは消す
 - resumeのポートフォリオと使用技術に追加
 
+## memo
+
+- push
+    - `git push origin HEAD:main`
+
 ## Bunの感想メモ
 
 - bun installが速い
