@@ -8,12 +8,13 @@ const zennArticlesList = zennArticles.data.articles.slice(0, 5).reduce((prev: an
 }, '```' + zennTitle) + '```';
 
 // Publickeyの記事を取得
-const publickeyRssUrl = 'https://www.publickey1.jp/atom.xml';
-const publickeyArticles = await axios.get(`https://api.rss2json.com/v1/api.json?rss_url=${publickeyRssUrl}`) 
+const publickeyTitle = '【Zennのトレンド】\n'
+const publickeyArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml') 
+const publickeyArticlesList = publickeyArticles.data.items.slice(0, 5).reduce((prev: any, current: any, index: any) => {
+  return prev + ' ' + `${index + 1}.<https://zenn.dev${current.link}|${current.title}>\n` 
+}, '```' + publickeyTitle) + '```';
 
-console.log("===================");
-console.log(publickeyArticles);
-console.log("===================");
+const articles = `${zennArticlesList}\n${publickeyArticlesList}`;
 
 const postData = new URLSearchParams();
 
@@ -21,7 +22,7 @@ postData.append('token', Bun.env.SLACK_BOT_TOKEN || "");
 postData.append('channel', '#エンジニアリング');
 postData.append(
   'text',
-  `${zennArticlesList}`
+  `${articles}`
 );
 
 axios.post('https://slack.com/api/chat.postMessage', postData)
