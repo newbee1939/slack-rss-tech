@@ -1,0 +1,31 @@
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: post-tech-rss-to-slack 
+spec:
+  template:
+    spec:
+      template:
+        spec:
+          maxRetries: 0
+          serviceAccountName: cloud-run@gig-sample-383607.iam.gserviceaccount.com
+          containers:
+          - image: ${DEPLOY_IMAGE}
+            command:
+            - npm
+            args:
+            - run
+            - bun
+            - run
+            - index.ts
+            env:
+            - name: SLACK_SIGNING_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: "1"
+                  name: SLACK_SIGNING_SECRET
+            - name: SLACK_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: "1"
+                  name: SLACK_BOT_TOKEN

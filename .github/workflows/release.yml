@@ -1,0 +1,80 @@
+name: Build & Release To Cloud Run Jobs
+
+on:
+  push:
+    branches:
+      - "main"
+
+# permissions:
+#   id-token: write
+
+env:
+  PROJECT_ID: gig-sample-383607
+  REGION: asia-northeast1
+  WORKLOAD_IDENTITY_PROVIDER: projects/908674848704/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider
+  SERVICE_ACCOUNT: github-actions@gig-sample-383607.iam.gserviceaccount.com
+
+jobs:
+  build-push-image:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1.1.1
+        with:
+          token_format: access_token
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Login Artifact Registry
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: ${{ env.REGION }}-docker.pkg.dev
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
+
+      - name: Create .env
+        run: cp .env.example .env
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v5.1.0
+        with:
+          context: .
+          push: true
+          file: ./docker/Dockerfile
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/slack-rss-tech/image:${{ github.sha }}-${{ github.run_attempt }}
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/slack-rss-tech/image:latest
+
+  release:
+    runs-on: ubuntu-22.04
+    needs: build-push-image
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate Google Cloud
+        uses: google-github-actions/auth@v1.1.1
+        with:
+          token_format: access_token
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}     
+
+      - name: Update Container Image
+        run: |
+          envsubst < ./cloudrun/job.yml > job.yml
+        env:
+          DEPLOY_IMAGE: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/slack-rss-tech/image:${{ github.sha }}-${{ github.run_attempt }}
+
+      # - name: Allow Unauthenticated Request
+      #   run: |
+      #     gcloud run services set-iam-policy rag-memo ./cloudrun/policy.yaml \
+      #       --region=${{ env.REGION }} \
+      #       --project=${{ env.PROJECT_ID }}
+
+      - name: Deploy Cloud Run Jobs
+        run: |
+          gcloud run jobs replace job.yml \
+            --region=${{ env.REGION }} \
+            --project=${{ env.PROJECT_ID }}
