@@ -66,6 +66,8 @@ w1707316441-wp8500715.slack.com
         - https://zenn.dev/api/articles/
 - 『rss to json』 というサービスを使って RSS フィードを JSON として取得して表示してみよう
     - https://zenn.dev/rabee/articles/js-fetch-rss-feed-as-json
+- はてなブックマークのRSSフィードのURLと確認方法
+    - https://sprint-life.hatenablog.com/entry/2014/01/15/203535
 
 ## TODO
 

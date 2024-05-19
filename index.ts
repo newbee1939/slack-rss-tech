@@ -21,7 +21,14 @@ const qiitaArticlesList = qiitaArticles.data.items.slice(0, 5).reduce((prev: any
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, qiitaTitle);
 
-const articles = ':robot_face:*今日の技術記事*' + "```" + `${zennArticlesList}\n${publickeyArticlesList}\n${qiitaArticlesList}` + "```";
+// はてなブックマークテクノロジーのトレンド記事を取得
+const hatenaTitle = '【はてなブックマーク(テクノロジー)のトレンド記事】\n'
+const hatenaArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://b.hatena.ne.jp/hotentry/it.rss') 
+const hatenaArticlesList = hatenaArticles.data.items.slice(0, 5).reduce((prev: any, current: any, index: any) => {
+  return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
+}, hatenaTitle);
+
+const articles = ':robot_face:*今日の技術記事*' + "```" + `${zennArticlesList}\n${publickeyArticlesList}\n${qiitaArticlesList}\n${hatenaArticlesList}` + "```";
 
 const postData = new URLSearchParams();
 
