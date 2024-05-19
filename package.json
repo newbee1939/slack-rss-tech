@@ -18,6 +18,7 @@
   "homepage": "https://github.com/newbee1939/slack-rss-tech#readme",
   "dependencies": {
     "@slack/bolt": "^3.18.0",
+    "@slack/web-api": "^7.0.4",
     "bun": "^1.1.8"
   },
   "devDependencies": {
