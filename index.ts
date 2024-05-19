@@ -3,8 +3,8 @@ import axios from "axios";
 // Zennの記事を取得
 const zennArticles = await axios.get("https://zenn.dev/api/articles/");
 const zennArticlesList = zennArticles.data.articles.slice(0, 5).reduce((prev: any, current: any, index: any) => {
-  return prev + `${index + 1}.${current.title}(${current.path})\n` 
-}, '```');
+  return prev + ' ' + `${index + 1}.${current.title}(https://zenn.dev${current.path})\n` 
+}, '```') + '```';
 
 const postData = new URLSearchParams();
 
