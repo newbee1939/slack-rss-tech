@@ -30,7 +30,21 @@ https://api.slack.com/apps/A06HKQ009TP/event-subscriptions
 
 設定URLの例: https://9b57-210-194-190-35.ngrok-free.app/slack/events
 
-12. SlackのDMでアプリにメッセージを送ったら返ってくるはず
+11. Slackアプリの設定
+
+以下の手順を参考に。
+
+https://slack.dev/bolt-js/ja-jp/tutorial/getting-started
+
+Bot Tokenを発行するには、`App Home`で`App Display Name`とかを設定する必要がある。
+
+12. slack/boltをインストール
+
+```shell
+npm install @slack/bolt
+```
+
+13. SlackのDMでアプリにメッセージを送ったら返ってくるはず
 
 w1707316441-wp8500715.slack.com
 
