@@ -5,8 +5,8 @@ on:
     branches:
       - "main"
 
-# permissions:
-#   id-token: write
+permissions:
+  id-token: write
 
 env:
   PROJECT_ID: gig-sample-383607
@@ -66,12 +66,6 @@ jobs:
           envsubst < ./cloudrun/job.yml > job.yml
         env:
           DEPLOY_IMAGE: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/slack-rss-tech/image:${{ github.sha }}-${{ github.run_attempt }}
-
-      # - name: Allow Unauthenticated Request
-      #   run: |
-      #     gcloud run services set-iam-policy rag-memo ./cloudrun/policy.yaml \
-      #       --region=${{ env.REGION }} \
-      #       --project=${{ env.PROJECT_ID }}
 
       - name: Deploy Cloud Run Jobs
         run: |
