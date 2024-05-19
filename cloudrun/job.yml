@@ -21,9 +21,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: "1"
-                  name: SLACK_SIGNING_SECRET
+                  name: RSS_SLACK_SIGNING_SECRET
             - name: SLACK_BOT_TOKEN
               valueFrom:
                 secretKeyRef:
                   key: "1"
-                  name: SLACK_BOT_TOKEN
+                  name: RSS_SLACK_BOT_TOKEN
