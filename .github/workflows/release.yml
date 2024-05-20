@@ -72,3 +72,12 @@ jobs:
           gcloud run jobs replace job.yml \
             --region=${{ env.REGION }} \
             --project=${{ env.PROJECT_ID }}
+
+      - name: Deploy Cloud Run Jobs Schedule
+        run: |
+          gcloud scheduler jobs create http post-tech-rss-to-slack \
+            --location ${{ env.REGION }} \
+            --schedule="30 9 * * 1-5" \
+            --uri="https://${{ env.REGION }}-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/${{ env.PROJECT_ID }}/jobs/JOB-NAME:run" \
+            --http-method POST \
+            --oauth-service-account-email 908674848704-compute@developer.gserviceaccount.com
