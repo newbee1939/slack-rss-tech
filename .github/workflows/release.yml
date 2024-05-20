@@ -80,4 +80,4 @@ jobs:
             --schedule="30 9 * * 1-5" \
             --uri="https://${{ env.REGION }}-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/${{ env.PROJECT_ID }}/jobs/post-tech-rss-to-slack:run" \
             --http-method POST \
-            --oauth-service-account-email 908674848704-compute@developer.gserviceaccount.com
+            --oauth-service-account-email ${{ env.SERVICE_ACCOUNT }}
