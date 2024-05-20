@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ARTICLE_LIMIT = 5;
+const ARTICLE_LIMIT = 5; 
 
 // Zennの記事を取得
 const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
