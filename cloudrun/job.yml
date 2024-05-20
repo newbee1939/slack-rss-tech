@@ -14,7 +14,6 @@ spec:
             command:
             - bun 
             args:
-            - run
             - index.ts
             env:
             - name: SLACK_SIGNING_SECRET
