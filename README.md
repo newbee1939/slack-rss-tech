@@ -68,4 +68,5 @@ w1707316441-wp8500715.slack.com
 - `bun run index.ts`について、Node.jsより速い？実際に試す
 - TypeScriptのコンパイル不要？
     - Node.jsは必要？
+    - 内部的にトランスパイルする
 - package.lock.jsonではなくbun.lockbで管理する？パフォーマンスのため
