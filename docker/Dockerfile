@@ -1,4 +1,5 @@
-FROM oven/bun:canary
+# FROM oven/bun:canary
+FROM oven/bun:distroless
 
 WORKDIR /app
 
