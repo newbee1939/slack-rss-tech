@@ -40,3 +40,6 @@ https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 
 - `git push origin main`ができない場合
     - `git push origin HEAD:main`
+- 頻度は以下の通り
+    - `30 9 * * 1-5`
+    - 平日の朝9:30
