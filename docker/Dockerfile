@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . . 
 
-# RUN bun install
+RUN bun install
