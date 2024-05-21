@@ -64,9 +64,10 @@ w1707316441-wp8500715.slack.com
 
 - 環境変数を`Bun.env`で読める
     - dotenv不要
-- bun installは速い
+- bun installが速い
 - `bun run index.ts`について、Node.jsより速い？実際に試す
 - TypeScriptのコンパイル不要？
     - Node.jsは必要？
     - 内部的にトランスパイルする
+    - tsの実行が簡単
 - package.lock.jsonではなくbun.lockbで管理する？パフォーマンスのため
