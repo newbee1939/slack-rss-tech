@@ -1,27 +1,12 @@
 # slack-rss-tech
 
-## 初期インストール
+## setup
 
-1. Bunのインストール
-2. bun install
+以下の記事に従ってトークン等を発行する。
 
-Slackアプリの設定
+https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 
-以下の手順を参考に。
-
-https://slack.dev/bolt-js/ja-jp/tutorial/getting-started
-
-Bot Tokenを発行するには、`App Home`で`App Display Name`とかを設定する必要がある。
-
-12. slack/boltをインストール
-
-```shell
-npm install @slack/bolt
-```
-
-13. SlackのDMでアプリにメッセージを送ったら返ってくるはず
-
-w1707316441-wp8500715.slack.com
+※Bot Tokenを発行するには、`App Home`で`App Display Name`とかを設定する必要がある。
 
 ## 関連リンク
 
@@ -32,8 +17,6 @@ w1707316441-wp8500715.slack.com
 
 ## 参考記事
 
-- Bolt 入門ガイド（HTTP）
-    - https://slack.dev/bolt-python/ja-jp/tutorial/getting-started-http
 - ZennをRSSフィードで購読する
     - https://zenn.dev/zenn/articles/zenn-feed-rss
     - https://zenn.dev/feed
@@ -47,15 +30,9 @@ w1707316441-wp8500715.slack.com
     - https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 - スケジュールに従ってジョブを実行する
     - https://cloud.google.com/run/docs/execute/jobs-on-schedule?hl=ja
-
-## TODO
-
-- 使用技術・やっていることを深いところで理解
-- secretをあげてしまったので新しくリポジトリ作って今のは消す
-- resumeのポートフォリオと使用技術に追加
-- わかったこと、学んだことをmemoに追記
+    - 今回は手動設定した
 
 ## memo
 
-- push
+- `git push origin main`ができない場合
     - `git push origin HEAD:main`
