@@ -37,7 +37,14 @@ const itMediaArticlesList = itMediaArticles.data.items.slice(0, ARTICLE_LIMIT).r
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, itMediaTitle);
 
-const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}` + "```";
+// TechCrunchの新着記事を取得
+const techCrunchTitle = '【<https://techcrunch.com/|TechCrunch>の新着記事】\n'
+const techCrunchArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://techcrunch.com/feed/') 
+const techCrunchArticlesList = techCrunchArticles.data.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
+  return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
+}, techCrunchTitle);
+
+const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}\n${techCrunchArticlesList}` + "```";
 
 const postData = new URLSearchParams();
 
