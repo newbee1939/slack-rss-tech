@@ -16,11 +16,6 @@ spec:
             args:
             - index.ts
             env:
-            - name: SLACK_SIGNING_SECRET
-              valueFrom:
-                secretKeyRef:
-                  key: "1"
-                  name: RSS_SLACK_SIGNING_SECRET
             - name: SLACK_BOT_TOKEN
               valueFrom:
                 secretKeyRef:
