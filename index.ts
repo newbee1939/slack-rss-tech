@@ -30,7 +30,14 @@ const hatenaArticlesList = hatenaArticles.data.items.slice(0, ARTICLE_LIMIT).red
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, hatenaTitle);
 
-const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}` + "```";
+// ITmediaの新着記事を取得
+const itMediaTitle = '【<https://www.itmedia.co.jp/|ITmedia>の新着記事】\n'
+const itMediaArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://rss.itmedia.co.jp/rss/2.0/topstory.xml') 
+const itMediaArticlesList = itMediaArticles.data.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
+  return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
+}, itMediaTitle);
+
+const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}` + "```";
 
 const postData = new URLSearchParams();
 
