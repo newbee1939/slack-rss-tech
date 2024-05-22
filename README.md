@@ -40,7 +40,7 @@ https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 
 ## Dockerイメージの配布
 
-1. `docker build ./docker -t slack-rss-tech`
+1. `docker build . -t slack-rss-tech -f ./docker/Dockerfile`
 2. `docker save slack-rss-tech > slack-rss-tech.tar`
 3. `docker load < slack-rss-tech.tar` # 利用側の手順はここから
 4. `docker images` # 読み込んだイメージを確認
