@@ -35,6 +35,15 @@ https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 - スケジュールに従ってジョブを実行する
     - https://cloud.google.com/run/docs/execute/jobs-on-schedule?hl=ja
     - 今回は手動設定した
+- Dockerコンテナイメージをファイルに保存、読み込み( save, load )
+    - https://qiita.com/loftkun/items/2238cc238dd9c55b7514
+
+## Dockerイメージの配布
+
+1. `docker build ./docker -t slack-rss-tech`
+2. `docker save slack-rss-tech > slack-rss-tech.tar`
+3. `docker load < slack-rss-tech.tar`
+4. `docker images` # 読み込んだイメージを確認
 
 ## memo
 
