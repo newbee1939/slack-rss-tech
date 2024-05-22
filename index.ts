@@ -37,7 +37,7 @@ const itMediaArticlesList = itMediaArticles.data.items.slice(0, ARTICLE_LIMIT).r
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, itMediaTitle);
 
-const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}\n` + "```";
+const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}` + "```";
 
 const postData = new URLSearchParams();
 
