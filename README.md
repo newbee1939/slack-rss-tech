@@ -12,6 +12,14 @@ https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
 
 ※Bot Tokenを発行するには、`App Home`で`App Display Name`とかを設定する必要がある。
 
+## デプロイ後にCloud Storageを使ってRSSデータを永続化
+
+1. Cloud Storageのバケットを作成する
+
+tech-rss
+
+2. job.ymlにvolumeの設定を追加
+
 ## 関連リンク
 
 - 「技術メモ」SlackワークスペースのURL
@@ -37,6 +45,8 @@ https://zenn.dev/kou_pg_0131/articles/slack-api-post-message
     - 今回は手動設定した
 - Dockerコンテナイメージをファイルに保存、読み込み( save, load )
     - https://qiita.com/loftkun/items/2238cc238dd9c55b7514
+- ジョブの Cloud Storage ボリュームのマウント
+    - https://cloud.google.com/run/docs/configuring/jobs/cloud-storage-volume-mounts?hl=ja#yaml
 
 ## Dockerイメージの配布
 
