@@ -3,6 +3,8 @@ import * as fs from "node:fs/promises";
 
 const ARTICLE_LIMIT = 5; 
 
+const PUBLICKEY_FILE_PATH = "/rss/publickey.json";
+
 // Zennの記事を取得
 const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
 const zennArticles = await axios.get("https://zenn.dev/api/articles/");
@@ -15,7 +17,11 @@ const publickeyTitle = '【<https://www.publickey1.jp/|Publickey>の新着記事
 const publickeyArticles = (await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).data.items 
 
 // Publickeyの前回の記事リンクリストを取得
-const prevPublickeyArticleLinks = await fs.readFile("tech-rss/publickey.json", null);
+const prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, null);
+console.log("============================");
+console.log(prevPublickeyArticleLinks);
+console.log("============================");
+
 // JSON.parse(data)
 
 const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
@@ -26,13 +32,17 @@ const publickeyArticlesList = requiredPublickeyArticleList.reduce((prev: any, cu
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, publickeyTitle);
 
+console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
+console.log(publickeyArticlesList);
+console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
+
 // 今回のPublickeyの記事リンクリストで上書き
 const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
   return item.link;
 })
 // const data = JSON.stringify(currentPublickeyArticleLinks, null, 2); // 配列をJSON文字列に変換
-await fs.writeFile("tech-rss/publickey.json", JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
-// await fs.writeFile("tech-rss/publickey.json", JSON.stringify(data, null, 2), 'utf8'); // ファイルに書き込む
+await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
+// await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(data, null, 2), 'utf8'); // ファイルに書き込む
 
 // Qiitaのトレンド記事を取得
 const qiitaTitle = '【<https://qiita.com/trend|Qiita>のトレンド記事】\n'
