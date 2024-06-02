@@ -21,3 +21,13 @@ spec:
                 secretKeyRef:
                   key: "1"
                   name: RSS_SLACK_BOT_TOKEN
+            volumeMounts:
+              - mountPath: /rss
+                name: rss 
+          volumes:
+          - name: rss 
+            csi:
+              driver: gcsfuse.run.googleapis.com
+              readOnly: FALSE # 書き込み可能
+              volumeAttributes:
+                bucketName: tech-rss
