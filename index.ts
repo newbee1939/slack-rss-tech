@@ -3,6 +3,7 @@ import * as fs from "node:fs/promises";
 
 const ARTICLE_LIMIT = 5; 
 
+// const PUBLICKEY_FILE_PATH = "./rss/publickey.json";
 const PUBLICKEY_FILE_PATH = "/rss/publickey.json";
 
 // Zennの記事を取得
@@ -17,7 +18,14 @@ const publickeyTitle = '【<https://www.publickey1.jp/|Publickey>の新着記事
 const publickeyArticles = (await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).data.items 
 
 // Publickeyの前回の記事リンクリストを取得
-const prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, null);
+let prevPublickeyArticleLinks: any;
+try {
+  prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, null);
+  console.log(prevPublickeyArticleLinks);
+} catch(error) {
+  prevPublickeyArticleLinks = [];
+  // ファイル作成
+}
 console.log("============================");
 console.log(prevPublickeyArticleLinks);
 console.log("============================");
@@ -37,10 +45,12 @@ console.log(publickeyArticlesList);
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
 
 // 今回のPublickeyの記事リンクリストで上書き
+console.log("ここにきた");
 const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
   return item.link;
 })
 // const data = JSON.stringify(currentPublickeyArticleLinks, null, 2); // 配列をJSON文字列に変換
+// await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
 await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
 // await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(data, null, 2), 'utf8'); // ファイルに書き込む
 
