@@ -74,11 +74,10 @@ postData.append(
   `${articles}`
 );
 
-// TODO: 一旦コメントアウト
-// axios.post('https://slack.com/api/chat.postMessage', postData)
-//   .then(response => {
-//     console.log('Response:', response.data);
-//   })
-//   .catch(error => {
-//     console.error('Error:', error);
-//   });
+axios.post('https://slack.com/api/chat.postMessage', postData)
+  .then(response => {
+    console.log('Response:', response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
