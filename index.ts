@@ -22,36 +22,25 @@ let prevPublickeyArticleLinks: any;
 try {
   prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, "utf8");
 } catch(error) {
+  console.log("ここきた");
   prevPublickeyArticleLinks = [];
   // ファイル作成
   //
 }
-// console.log("============================");
-// console.log(prevPublickeyArticleLinks);
-// console.log("============================");
 
 const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
   // NOTE: "新着"記事なので、前回表示した記事は除外する
   return !prevPublickeyArticleLinks.includes(item.link);
 });
-const publickeyArticlesList = requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
+const publickeyArticlesList = requiredPublickeyArticleList ? requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
-}, publickeyTitle);
-
-// TODO: 新着記事がない場合は文字列表示
-// console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
-// console.log(publickeyArticlesList);
-// console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
+}, publickeyTitle) : publickeyTitle;
 
 // 今回のPublickeyの記事リンクリストで上書き
-// console.log("ここにきた");
 const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
   return item.link;
 })
-// const data = JSON.stringify(currentPublickeyArticleLinks, null, 2); // 配列をJSON文字列に変換
-// await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
 await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
-// await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(data, null, 2), 'utf8'); // ファイルに書き込む
 
 // Qiitaのトレンド記事を取得
 const qiitaTitle = '【<https://qiita.com/trend|Qiita>のトレンド記事】\n'
