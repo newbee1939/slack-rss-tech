@@ -4,7 +4,8 @@ import * as fs from "node:fs/promises";
 const ARTICLE_LIMIT = 5; 
 
 // NOTE: ローカルではローカルファイルパスを、PROではvolumeのマウントパスを見る
-const PUBLICKEY_FILE_PATH = Bun.env.PUBLICKEY_FILE_PATH ?? "/rss/publickey.json";
+const publickeyDirectoryPath = Bun.env.PUBLICKEY_DIRECTORY_PATH ?? "/rss" 
+const PUBLICKEY_FILE_PATH = `${publickeyDirectoryPath}/publickey.json`;
 
 // Zennの記事を取得
 const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
@@ -22,10 +23,9 @@ let prevPublickeyArticleLinks: any;
 try {
   prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, "utf8");
 } catch(error) {
-  console.log("ここきた");
+  // 対象のディレクトリが存在しない場合
   prevPublickeyArticleLinks = [];
-  // ファイル作成
-  //
+  await fs.ensureDir(directoryPath);
 }
 
 const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
