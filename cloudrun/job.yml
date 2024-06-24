@@ -21,6 +21,8 @@ spec:
                 secretKeyRef:
                   key: "1"
                   name: RSS_SLACK_BOT_TOKEN
+            - name: PUBLICKEY_FILE_PATH
+              value: "/rss/publickey.json"
             volumeMounts:
               - mountPath: /rss
                 name: rss 

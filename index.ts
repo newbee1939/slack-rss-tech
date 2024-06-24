@@ -3,8 +3,8 @@ import * as fs from "node:fs/promises";
 
 const ARTICLE_LIMIT = 5; 
 
-// const PUBLICKEY_FILE_PATH = "./rss/publickey.json";
-const PUBLICKEY_FILE_PATH = "/rss/publickey.json";
+// NOTE: ローカルではローカルファイルパスを、PROではvolumeのマウントパスを見る
+const PUBLICKEY_FILE_PATH = Bun.env.PUBLICKEY_FILE_PATH ?? "/rss/publickey.json";
 
 // Zennの記事を取得
 const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
@@ -20,17 +20,15 @@ const publickeyArticles = (await axios.get('https://api.rss2json.com/v1/api.json
 // Publickeyの前回の記事リンクリストを取得
 let prevPublickeyArticleLinks: any;
 try {
-  prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, null);
-  console.log(prevPublickeyArticleLinks);
+  prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, "utf8");
 } catch(error) {
   prevPublickeyArticleLinks = [];
   // ファイル作成
+  //
 }
-console.log("============================");
-console.log(prevPublickeyArticleLinks);
-console.log("============================");
-
-// JSON.parse(data)
+// console.log("============================");
+// console.log(prevPublickeyArticleLinks);
+// console.log("============================");
 
 const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
   // NOTE: "新着"記事なので、前回表示した記事は除外する
@@ -40,12 +38,13 @@ const publickeyArticlesList = requiredPublickeyArticleList.reduce((prev: any, cu
   return prev + ' ' + `${index + 1}.<${current.link}|${current.title}>\n` 
 }, publickeyTitle);
 
-console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
-console.log(publickeyArticlesList);
-console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
+// TODO: 新着記事がない場合は文字列表示
+// console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
+// console.log(publickeyArticlesList);
+// console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^")
 
 // 今回のPublickeyの記事リンクリストで上書き
-console.log("ここにきた");
+// console.log("ここにきた");
 const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
   return item.link;
 })
