@@ -18,7 +18,7 @@ const zennArticlesList = zennArticles.data.articles.slice(0, ARTICLE_LIMIT).redu
 const publickeyTitle = '【<https://www.publickey1.jp/|Publickey>の新着記事】\n'
 const publickeyArticles = (await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).data.items 
 
-// Publickeyの前回の記事リンクリストを取得
+// Publickeyの前回の新着記事リンクリスト（6件）を取得
 let prevPublickeyArticleLinks: any;
 try {
   prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, "utf8");
@@ -37,7 +37,7 @@ console.log(prevPublickeyArticleLinks);
 console.log("=========前回表示したリンクのリスト===============");
 
 const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
-  // NOTE: "新着"記事なので、前回表示した記事は除外する
+  // NOTE: "新着"記事なので、前回の新着記事は除外する
   return !prevPublickeyArticleLinks.includes(item.link);
 });
 
@@ -49,8 +49,8 @@ const publickeyArticlesList = requiredPublickeyArticleList ? requiredPublickeyAr
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
 }, publickeyTitle) : `${publickeyTitle}\n新着記事はありません`;
 
-// 今回表示するPublickeyの記事リンクリストで上書き
-const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
+// 今回のPublickeyの記事リンクリストで上書き
+const currentPublickeyArticleLinks = publickeyArticles.map((item: any) => {
   return item.link;
 })
 await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
