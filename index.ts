@@ -46,7 +46,7 @@ console.log("======今回表示するリンクのリスト===========");
 console.log(requiredPublickeyArticleList);
 console.log("======今回表示するリンクのリスト===========");
 
-const publickeyArticlesList = requiredPublickeyArticleList ? requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
+const publickeyArticlesList = requiredPublickeyArticleList.length !== 0 ? requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
 }, publickeyTitle) : `${publickeyTitle}\n新着記事はありません`;
 
