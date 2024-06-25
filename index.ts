@@ -36,7 +36,7 @@ const publickeyArticlesList = requiredPublickeyArticleList ? requiredPublickeyAr
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
 }, publickeyTitle) : publickeyTitle;
 
-// 今回のPublickeyの記事リンクリストで上書き
+// 今回表示するPublickeyの記事リンクリストで上書き
 const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
   return item.link;
 })
