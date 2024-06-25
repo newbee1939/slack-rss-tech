@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as fs from "node:fs/promises";
 
-const ARTICLE_LIMIT = 5; 
+const ARTICLE_LIMIT = 6; 
 
 // NOTE: ローカルではローカルファイルパスを、PROではvolumeのマウントパスを見る
 const publickeyDirectoryPath = Bun.env.PUBLICKEY_DIRECTORY_PATH ?? "/rss" 
