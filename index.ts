@@ -28,13 +28,26 @@ try {
   await fs.mkdir(publickeyDirectoryPath);
 }
 
+console.log("=========RSSから取得した最新記事6件==========");
+console.log(publickeyArticles.slice(0, ARTICLE_LIMIT));
+console.log("=========RSSから取得した最新記事6件==========");
+
+console.log("=========前回表示したリンクのリスト===============");
+console.log(prevPublickeyArticleLinks);
+console.log("=========前回表示したリンクのリスト===============");
+
 const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
   // NOTE: "新着"記事なので、前回表示した記事は除外する
   return !prevPublickeyArticleLinks.includes(item.link);
 });
+
+console.log("======今回表示するリンクのリスト===========");
+console.log(requiredPublickeyArticleList);
+console.log("======今回表示するリンクのリスト===========");
+
 const publickeyArticlesList = requiredPublickeyArticleList ? requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
-}, publickeyTitle) : publickeyTitle;
+}, publickeyTitle) : `${publickeyTitle}\n新着記事はありません`;
 
 // 今回表示するPublickeyの記事リンクリストで上書き
 const currentPublickeyArticleLinks = requiredPublickeyArticleList.map((item: any) => {
