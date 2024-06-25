@@ -36,7 +36,8 @@ console.log("=========前回表示したリンクのリスト===============");
 console.log(prevPublickeyArticleLinks);
 console.log("=========前回表示したリンクのリスト===============");
 
-const requiredPublickeyArticleList = publickeyArticles.slice(0, ARTICLE_LIMIT).filter((item: any) => {
+const slicedPublickeyArticles = publickeyArticles.slice(0, ARTICLE_LIMIT);
+const requiredPublickeyArticleList = slicedPublickeyArticles.filter((item: any) => {
   // NOTE: "新着"記事なので、前回の新着記事は除外する
   return !prevPublickeyArticleLinks.includes(item.link);
 });
@@ -50,7 +51,7 @@ const publickeyArticlesList = requiredPublickeyArticleList ? requiredPublickeyAr
 }, publickeyTitle) : `${publickeyTitle}\n新着記事はありません`;
 
 // 今回のPublickeyの記事リンクリストで上書き
-const currentPublickeyArticleLinks = publickeyArticles.map((item: any) => {
+const currentPublickeyArticleLinks = slicedPublickeyArticles.map((item: any) => {
   return item.link;
 })
 await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLinks, null, 2), 'utf8');
