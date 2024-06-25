@@ -48,7 +48,7 @@ console.log("======今回表示するリンクのリスト===========");
 
 const publickeyArticlesList = requiredPublickeyArticleList.length !== 0 ? requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
-}, publickeyTitle) : `${publickeyTitle}\n新着記事はありません`;
+}, publickeyTitle) : `${publickeyTitle}新着記事はありません\n`;
 
 // 今回のPublickeyの記事リンクリストで上書き
 const currentPublickeyArticleLinks = slicedPublickeyArticles.map((item: any) => {
