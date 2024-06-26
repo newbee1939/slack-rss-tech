@@ -90,12 +90,13 @@ const currentItMediaArticleLinks = slicedItMediaArticles.map((item: any) => {
 })
 await fs.writeFile(ITMEDIA_FILE_PATH, JSON.stringify(currentItMediaArticleLinks, null, 2), 'utf8');
 
-const articles = ':robot_face:*本日の技術記事*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}` + "```";
+const articles = ':sunny:*おはようございます！今日の技術記事です！*' + "```" + `${hatenaArticlesList}\n${publickeyArticlesList}\n${zennArticlesList}\n${qiitaArticlesList}\n${itMediaArticlesList}` + "```";
 
 const postData = new URLSearchParams();
 
 postData.append('token', Bun.env.SLACK_BOT_TOKEN || "");
 postData.append('channel', '#エンジニアリング');
+// postData.append("channel", "#times_hide");
 postData.append(
   'text',
   `${articles}`

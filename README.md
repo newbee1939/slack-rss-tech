@@ -20,6 +20,16 @@ tech-rss
 
 2. job.ymlにvolumeの設定を追加
 
+## 手動でCloud Run Jobsにデプロイする場合の手順
+
+1. `docker build . --platform="linux/amd64" -t slack-rss-tech-18 -f ./docker/Dockerfile`
+2. `docker tag slack-rss-tech-18 asia-northeast1-docker.pkg.dev/hoge-dev-193891/slack-rss-tech/image:18`
+3. `docker tag slack-rss-tech-18 asia-northeast1-docker.pkg.dev/hoge-dev-193891/slack-rss-tech/image:latest`
+4. `docker push asia-northeast1-docker.pkg.dev/hoge-dev-193891/slack-rss-tech/image:18`
+5. `docker push asia-northeast1-docker.pkg.dev/hoge-dev-193891/slack-rss-tech/image:latest`
+6. job.yml の image を更新する`asia-northeast1-docker.pkg.dev/hoge-dev-193891/slack-rss-tech/image:18`
+7. `gcloud run jobs replace cloudrun/job.yml --region=asia-northeast1 --project=hoge-dev-193891`
+
 ## 関連リンク
 
 - 「技術メモ」SlackワークスペースのURL
@@ -71,3 +81,4 @@ tech-rss
 - index.ts内が増えてきたのでアーキテクチャ設計して整理する
     - テストも書く    
 - 共通化してコード管理をしやすくしたい。privateメソッド
+- axiosを消す。Bunのfetch関数を使う
