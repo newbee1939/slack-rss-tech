@@ -3,6 +3,9 @@ kind: Job
 metadata:
   name: post-tech-rss-to-slack 
 spec:
+  metadata:
+    annotations:
+      run.googleapis.com/launch-stage: BETA 
   template:
     spec:
       template:
