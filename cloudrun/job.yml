@@ -2,14 +2,11 @@ apiVersion: run.googleapis.com/v1
 kind: Job
 metadata:
   name: post-tech-rss-to-slack 
-# spec:
-#   metadata:
-#     annotations:
-#       run.googleapis.com/launch-stage: BETA 
+spec:
+  # metadata:
+  #   annotations:
+  #     run.googleapis.com/launch-stage: BETA 
   template:
-    metadata:
-      annotations:
-        run.googleapis.com/execution-environment: gen2
     spec:
       template:
         spec:
@@ -28,9 +25,9 @@ metadata:
                   key: "1"
                   name: RSS_SLACK_BOT_TOKEN
             - name: RSS_DIRECTORY_PATH
-              value: "./rss"
+              value: "./rss-storage"
             volumeMounts:
-              - mountPath: "./rss"
+              - mountPath: "./rss-storage"
                 name: rss 
           volumes:
           - name: rss 
