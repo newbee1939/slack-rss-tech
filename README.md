@@ -47,6 +47,8 @@ tech-rss
     - https://qiita.com/loftkun/items/2238cc238dd9c55b7514
 - ジョブの Cloud Storage ボリュームのマウント
     - https://cloud.google.com/run/docs/configuring/jobs/cloud-storage-volume-mounts?hl=ja#yaml
+- Cloud Runのトラブルシューティング
+    - https://cloud.google.com/run/docs/troubleshooting?hl=ja#launch-stage-validation
 
 ## Dockerイメージの配布
 
