@@ -1,35 +1,41 @@
 apiVersion: run.googleapis.com/v1
 kind: Job
 metadata:
-  name: post-tech-rss-to-slack
-  annotations:
-    run.googleapis.com/launch-stage: BETA
-spec:
+  name: post-tech-rss-to-slack 
+# spec:
+#   metadata:
+#     annotations:
+#       run.googleapis.com/launch-stage: BETA 
   template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
     spec:
-      maxRetries: 0
-      serviceAccountName: cloud-run@gig-sample-383607.iam.gserviceaccount.com
-      containers:
-      - image: ${DEPLOY_IMAGE}
-        command:
-        - bun
-        args:
-        - index.ts
-        env:
-        - name: SLACK_BOT_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: "1"
-              name: RSS_SLACK_BOT_TOKEN
-        - name: RSS_DIRECTORY_PATH
-          value: "./rss"
-        volumeMounts:
-        - mountPath: "./rss"
-          name: rss
-      volumes:
-      - name: rss
-        csi:
-          driver: gcsfuse.run.googleapis.com
-          readOnly: FALSE # 書き込み可能
-          volumeAttributes:
-            bucketName: tech-rss
+      template:
+        spec:
+          maxRetries: 0
+          serviceAccountName: cloud-run@gig-sample-383607.iam.gserviceaccount.com
+          containers:
+          - image: ${DEPLOY_IMAGE}
+            command:
+            - bun 
+            args:
+            - index.ts
+            env:
+            - name: SLACK_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: "1"
+                  name: RSS_SLACK_BOT_TOKEN
+            - name: RSS_DIRECTORY_PATH
+              value: "./rss"
+            volumeMounts:
+              - mountPath: "./rss"
+                name: rss 
+          volumes:
+          - name: rss 
+            csi:
+              driver: gcsfuse.run.googleapis.com
+              readOnly: FALSE # 書き込み可能
+              volumeAttributes:
+                bucketName: tech-rss
