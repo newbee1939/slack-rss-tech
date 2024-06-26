@@ -7,6 +7,9 @@ spec:
     annotations:
       run.googleapis.com/launch-stage: BETA 
   template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
     spec:
       template:
         spec:
