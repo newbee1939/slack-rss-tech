@@ -4,10 +4,9 @@ import * as fs from "node:fs/promises";
 const ARTICLE_LIMIT = 6; 
 
 // NOTE: ローカルではローカルファイルパスを、PROではvolumeのマウントパスを見る
-const publicKeyDirectoryPath = Bun.env.PUBLICKEY_DIRECTORY_PATH ?? "/rss-publickey" 
-const itMediaDirectoryPath = Bun.env.ITMEDIA_DIRECTORY_PATH ?? "/rss-itmedia" 
-const PUBLICKEY_FILE_PATH = `${publicKeyDirectoryPath}/publickey.json`;
-const ITMEDIA_FILE_PATH = `${itMediaDirectoryPath}/itmedia.json`;
+const rssDirectoryPath = Bun.env.RSS_DIRECTORY_PATH ?? "/rss" 
+const PUBLICKEY_FILE_PATH = `${rssDirectoryPath}/publickey.json`;
+const ITMEDIA_FILE_PATH = `${rssDirectoryPath}/itmedia.json`;
 
 // Zennの記事を取得
 const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
@@ -25,9 +24,8 @@ let prevPublickeyArticleLinks: any;
 try {
   prevPublickeyArticleLinks = await fs.readFile(PUBLICKEY_FILE_PATH, "utf8");
 } catch(error) {
-  // 対象のディレクトリが存在しない場合、作成する
+  // 対象のディレクトリが存在しない場合、最初の投稿ということなので空でいい
   prevPublickeyArticleLinks = [];
-  await fs.mkdir(publicKeyDirectoryPath);
 }
 
 const slicedPublickeyArticles = publickeyArticles.slice(0, ARTICLE_LIMIT);
@@ -69,9 +67,8 @@ let prevItMediaArticleLinks: any;
 try {
   prevItMediaArticleLinks = await fs.readFile(ITMEDIA_FILE_PATH, "utf8");
 } catch(error) {
-  // 対象のディレクトリが存在しない場合、作成する
+  // 対象のディレクトリが存在しない場合、最初の投稿ということなので空でいい
   prevItMediaArticleLinks = [];
-  await fs.mkdir(itMediaDirectoryPath);
 }
 
 const slicedItMediaArticles = itMediaArticles.data.items.slice(0, ARTICLE_LIMIT);
