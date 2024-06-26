@@ -96,6 +96,7 @@ const postData = new URLSearchParams();
 
 postData.append('token', Bun.env.SLACK_BOT_TOKEN || "");
 postData.append('channel', '#エンジニアリング');
+// postData.append("channel", "#times_hide");
 postData.append(
   'text',
   `${articles}`
