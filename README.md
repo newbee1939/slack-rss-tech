@@ -78,6 +78,7 @@ tech-rss
 ## TODO
 
 - README整理
+- Cloud Run JobsとCloud Storageで差分更新できるように
 - index.ts内が増えてきたのでアーキテクチャ設計して整理する
     - テストも書く    
 - 共通化してコード管理をしやすくしたい。privateメソッド
