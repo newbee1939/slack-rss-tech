@@ -94,21 +94,13 @@ const postData = new URLSearchParams();
 postData.append('token', Bun.env.SLACK_BOT_TOKEN || "");
 postData.append('channel', '#エンジニアリング');
 // postData.append("channel", "#times_hide");
-postData.append(
-  'text',
-  `${articles}`
-);
+postData.append('text', `${articles}`);
 
-// await fetch("https://slack.com/api/chat.postMessage", {
-//   method: "POST",
-//   body: JSON.stringify(postData),
-//   headers: { "Content-Type": "application/json" },
-// });
-
-axios.post('https://slack.com/api/chat.postMessage', postData)
-  .then(response => {
-    console.log('Response:', response.data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+const response = await fetch('https://slack.com/api/chat.postMessage', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: postData.toString()
+})
+console.log(await response.json());
