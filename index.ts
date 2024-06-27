@@ -18,8 +18,6 @@ const makeZennArticleList = async () => {
 }
 
 const makePublickeyArticleList = async () => {
-  const publickeyArticles = (await(await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).json()).items 
-
   // Publickeyの前回の新着記事リンクリスト（6件）を取得
   let prevPublickeyArticleLinks: any;
   try {
@@ -29,6 +27,7 @@ const makePublickeyArticleList = async () => {
     prevPublickeyArticleLinks = [];
   }
 
+  const publickeyArticles = (await(await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).json()).items 
   const slicedPublickeyArticles = publickeyArticles.slice(0, ARTICLE_LIMIT);
   const requiredPublickeyArticleList = slicedPublickeyArticles.filter((item: any) => {
     // NOTE: "新着"記事なので、前回の新着記事は除外する
@@ -68,10 +67,6 @@ const makeHatenaArticleList = async () => {
 }
 
 const makeItmediaArticleList = async () => {
-  // ITmediaの新着記事を取得
-  const itMediaTitle = '【<https://www.itmedia.co.jp/|ITmedia>の新着記事】\n';
-  const itMediaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://rss.itmedia.co.jp/rss/2.0/topstory.xml')).json();
-
   // ITmediaの前回の新着記事リンクリスト（6件）を取得
   let prevItMediaArticleLinks: any;
   try {
@@ -81,12 +76,15 @@ const makeItmediaArticleList = async () => {
     prevItMediaArticleLinks = [];
   }
 
+  // ITmediaの新着記事を取得
+  const itMediaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://rss.itmedia.co.jp/rss/2.0/topstory.xml')).json();
   const slicedItMediaArticles = itMediaArticles.items.slice(0, ARTICLE_LIMIT);
   const requiredItMediaArticleList = slicedItMediaArticles.filter((item: any) => {
     // NOTE: "新着"記事なので、前回の新着記事は除外する
     return !prevItMediaArticleLinks.includes(item.link);
   });
 
+  const itMediaTitle = '【<https://www.itmedia.co.jp/|ITmedia>の新着記事】\n';
   const itMediaArticleList = requiredItMediaArticleList.length !== 0 ? requiredItMediaArticleList.reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
   }, itMediaTitle) : `${itMediaTitle}新着記事はありません\n`;
