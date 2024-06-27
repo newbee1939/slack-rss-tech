@@ -10,14 +10,14 @@ const ITMEDIA_FILE_PATH = `${rssDirectoryPath}/itmedia.json`;
 
 // Zennの記事を取得
 const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
-const zennArticles = await axios.get("https://zenn.dev/api/articles/");
-const zennArticlesList = zennArticles.data.articles.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
+const zennArticles = await (await fetch("https://zenn.dev/api/articles/")).json();
+const zennArticlesList = zennArticles.articles.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<https://zenn.dev${current.path}|${Bun.escapeHTML(current.title)}>\n` 
 }, zennTitle);
 
 // Publickeyの新着記事を取得
 const publickeyTitle = '【<https://www.publickey1.jp/|Publickey>の新着記事】\n'
-const publickeyArticles = (await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).data.items 
+const publickeyArticles = (await(await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).json()).items 
 
 // Publickeyの前回の新着記事リンクリスト（6件）を取得
 let prevPublickeyArticleLinks: any;
@@ -46,21 +46,21 @@ await fs.writeFile(PUBLICKEY_FILE_PATH, JSON.stringify(currentPublickeyArticleLi
 
 // Qiitaのトレンド記事を取得
 const qiitaTitle = '【<https://qiita.com/trend|Qiita>のトレンド記事】\n'
-const qiitaArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://qiita.com/popular-items/feed') 
-const qiitaArticlesList = qiitaArticles.data.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
+const qiitaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://qiita.com/popular-items/feed')).json();
+const qiitaArticlesList = qiitaArticles.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
 }, qiitaTitle);
 
 // はてなブックマークテクノロジーのトレンド記事を取得
 const hatenaTitle = '【<https://b.hatena.ne.jp/hotentry/it|はてなブックマーク(テクノロジー)>のトレンド記事】\n'
-const hatenaArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://b.hatena.ne.jp/hotentry/it.rss') 
-const hatenaArticlesList = hatenaArticles.data.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
+const hatenaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://b.hatena.ne.jp/hotentry/it.rss')).json();
+const hatenaArticlesList = hatenaArticles.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
   return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
 }, hatenaTitle);
 
 // ITmediaの新着記事を取得
-const itMediaTitle = '【<https://www.itmedia.co.jp/|ITmedia>の新着記事】\n'
-const itMediaArticles = await axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://rss.itmedia.co.jp/rss/2.0/topstory.xml') 
+const itMediaTitle = '【<https://www.itmedia.co.jp/|ITmedia>の新着記事】\n';
+const itMediaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://rss.itmedia.co.jp/rss/2.0/topstory.xml')).json();
 
 // ITmediaの前回の新着記事リンクリスト（6件）を取得
 let prevItMediaArticleLinks: any;
@@ -71,7 +71,7 @@ try {
   prevItMediaArticleLinks = [];
 }
 
-const slicedItMediaArticles = itMediaArticles.data.items.slice(0, ARTICLE_LIMIT);
+const slicedItMediaArticles = itMediaArticles.items.slice(0, ARTICLE_LIMIT);
 const requiredItMediaArticleList = slicedItMediaArticles.filter((item: any) => {
   // NOTE: "新着"記事なので、前回の新着記事は除外する
   return !prevItMediaArticleLinks.includes(item.link);
@@ -98,6 +98,12 @@ postData.append(
   'text',
   `${articles}`
 );
+
+// await fetch("https://slack.com/api/chat.postMessage", {
+//   method: "POST",
+//   body: JSON.stringify(postData),
+//   headers: { "Content-Type": "application/json" },
+// });
 
 axios.post('https://slack.com/api/chat.postMessage', postData)
   .then(response => {
