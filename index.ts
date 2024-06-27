@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as fs from "node:fs/promises";
 
 const ARTICLE_LIMIT = 6; 
