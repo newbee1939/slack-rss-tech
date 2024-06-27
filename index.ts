@@ -27,6 +27,7 @@ const makePublickeyArticleList = async () => {
     prevPublickeyArticleLinks = [];
   }
 
+  // 最新のPublickeyの記事を取得
   const publickeyArticles = (await(await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).json()).items 
   const slicedPublickeyArticles = publickeyArticles.slice(0, ARTICLE_LIMIT);
   const requiredPublickeyArticleList = slicedPublickeyArticles.filter((item: any) => {
@@ -39,7 +40,7 @@ const makePublickeyArticleList = async () => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
   }, publickeyTitle) : `${publickeyTitle}新着記事はありません\n`;
 
-  // 今回のPublickeyの記事リンクリストで上書き
+  // 今回のPublickeyの記事リンクリストでファイルを上書き
   const currentPublickeyArticleLinks = slicedPublickeyArticles.map((item: any) => {
     return item.link;
   })
@@ -49,6 +50,7 @@ const makePublickeyArticleList = async () => {
 }
 
 const makeQiitaArticleList = async () => {
+  // Qiitaの最新記事を取得
   const qiitaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://qiita.com/popular-items/feed')).json();
   const qiitaArticleList = qiitaArticles.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
@@ -58,6 +60,7 @@ const makeQiitaArticleList = async () => {
 }
 
 const makeHatenaArticleList = async () => {
+  // Hatenaの最新記事を取得
   const hatenaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://b.hatena.ne.jp/hotentry/it.rss')).json();
   const hatenaArticleList = hatenaArticles.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
@@ -89,7 +92,7 @@ const makeItmediaArticleList = async () => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
   }, itMediaTitle) : `${itMediaTitle}新着記事はありません\n`;
 
-  // 今回のITMediaの記事リンクリストで上書き
+  // 今回のITMediaの最新記事リンクリストで上書き
   const currentItMediaArticleLinks = slicedItMediaArticles.map((item: any) => {
     return item.link;
   })
@@ -125,6 +128,7 @@ const postTechArticleList = async () => {
     },
     body: postData.toString()
   })
+
   console.log(await response.json());
 }
 
