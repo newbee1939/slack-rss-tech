@@ -8,19 +8,16 @@ const PUBLICKEY_FILE_PATH = `${rssDirectoryPath}/publickey.json`;
 const ITMEDIA_FILE_PATH = `${rssDirectoryPath}/itmedia.json`;
 
 const makeZennArticleList = async () => {
-  // Zennの記事を取得
-  const zennTitle = '【<https://zenn.dev/|Zenn>のトレンド記事】\n'
   const zennArticles = await (await fetch("https://zenn.dev/api/articles/")).json();
+
   const zennArticleList = zennArticles.articles.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<https://zenn.dev${current.path}|${Bun.escapeHTML(current.title)}>\n` 
-  }, zennTitle);
+  }, '【<https://zenn.dev/|Zenn>のトレンド記事】\n');
 
   return zennArticleList;
 }
 
 const makePublickeyArticleList = async () => {
-  // Publickeyの新着記事を取得
-  const publickeyTitle = '【<https://www.publickey1.jp/|Publickey>の新着記事】\n'
   const publickeyArticles = (await(await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.publickey1.jp/atom.xml')).json()).items 
 
   // Publickeyの前回の新着記事リンクリスト（6件）を取得
@@ -38,6 +35,7 @@ const makePublickeyArticleList = async () => {
     return !prevPublickeyArticleLinks.includes(item.link);
   });
 
+  const publickeyTitle = '【<https://www.publickey1.jp/|Publickey>の新着記事】\n'
   const publickeyArticleList = requiredPublickeyArticleList.length !== 0 ? requiredPublickeyArticleList.reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
   }, publickeyTitle) : `${publickeyTitle}新着記事はありません\n`;
@@ -52,23 +50,19 @@ const makePublickeyArticleList = async () => {
 }
 
 const makeQiitaArticleList = async () => {
-  // Qiitaのトレンド記事を取得
-  const qiitaTitle = '【<https://qiita.com/trend|Qiita>のトレンド記事】\n'
   const qiitaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://qiita.com/popular-items/feed')).json();
   const qiitaArticleList = qiitaArticles.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
-  }, qiitaTitle);
+  }, '【<https://qiita.com/trend|Qiita>のトレンド記事】\n');
 
   return qiitaArticleList;
 }
 
 const makeHatenaArticleList = async () => {
-  // はてなブックマークテクノロジーのトレンド記事を取得
-  const hatenaTitle = '【<https://b.hatena.ne.jp/hotentry/it|はてなブックマーク(テクノロジー)>のトレンド記事】\n'
   const hatenaArticles = await (await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://b.hatena.ne.jp/hotentry/it.rss')).json();
   const hatenaArticleList = hatenaArticles.items.slice(0, ARTICLE_LIMIT).reduce((prev: any, current: any, index: any) => {
     return prev + ' ' + `${index + 1}.<${current.link}|${Bun.escapeHTML(current.title)}>\n` 
-  }, hatenaTitle);
+  }, '【<https://b.hatena.ne.jp/hotentry/it|はてなブックマーク(テクノロジー)>のトレンド記事】\n');
 
   return hatenaArticleList;
 }
