@@ -20,6 +20,8 @@ tech-rss
 
 2. job.ymlにvolumeの設定を追加
 
+3. Cloud Runに設定しているサービスアカウントに、IAMの画面で`Storage オブジェクト ユーザー`の権限を付与する
+
 ## 手動でCloud Run Jobsにデプロイする場合の手順
 
 1. `docker build . --platform="linux/amd64" -t slack-rss-tech-18 -f ./docker/Dockerfile`
