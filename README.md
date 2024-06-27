@@ -91,3 +91,4 @@ tech-rss
 ## 備考
 
 - Slack APIからtext投稿する場合、4000文字を超えるとメッセージ分割されるっぽい
+    - 参考: https://api.slack.com/methods/chat.postMessage#truncating
