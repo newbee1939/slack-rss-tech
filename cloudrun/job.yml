@@ -2,10 +2,9 @@ apiVersion: run.googleapis.com/v1
 kind: Job
 metadata:
   name: post-tech-rss-to-slack 
+  annotations:
+    run.googleapis.com/launch-stage: BETA
 spec:
-  # metadata:
-  #   annotations:
-  #     run.googleapis.com/launch-stage: BETA 
   template:
     spec:
       template:
