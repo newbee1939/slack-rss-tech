@@ -36,6 +36,8 @@ tech-rss
     - w1707316441-wp8500715.slack.com
 - Slackのアプリケーション一覧画面
     - https://api.slack.com/apps
+- Cloud Run Jobsの画面
+    - https://console.cloud.google.com/run/jobs/details/asia-northeast1/post-tech-rss-to-slack/executions?project=gig-sample-383607
 
 ## 参考記事
 
