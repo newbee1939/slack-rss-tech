@@ -24,9 +24,9 @@ spec:
                   key: "1"
                   name: RSS_SLACK_BOT_TOKEN
             - name: RSS_DIRECTORY_PATH
-              value: "/rss-storage"
+              value: /rss-storage
             volumeMounts:
-              - mountPath: "/rss-storage"
+              - mountPath: /rss-storage
                 name: rss 
           volumes:
           - name: rss 
